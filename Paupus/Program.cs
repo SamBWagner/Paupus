@@ -15,7 +15,11 @@ do
     switch (choice)
     {
         case "1":
-            CardSearch.SearchForCard();
+            await CardSearch.SearchForCard();
             break;
+        default:
+            continue;
     }
+    Console.WriteLine("Press any key to continue");
+    Console.Read();
 } while (choice != EXIT_VALUE);
