@@ -11,7 +11,7 @@ public static class CardSearch
         Console.Write($"What card would you like to search for?: ");
         var encodedCardSerach = EncodeSearch(Console.ReadLine());
         using HttpClient client = new();
-        var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{APIs.ScryFallBaseApi}/cards/search?q={encodedCardSerach}");
+        var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{APIs.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSerach}");
         foreach (var card in cards.Data)
         {
             Console.Write($"• {card.Name}\n");
