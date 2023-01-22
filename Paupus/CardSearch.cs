@@ -8,13 +8,20 @@ public static class CardSearch
 {
     public static async Task SearchForCard()
     {
-        Console.Write($"What card would you like to search for?: ");
-        var encodedCardSerach = EncodeSearch(Console.ReadLine());
+        Console.Write("What card would you like to search for?: ");
+        var encodedCardSearch = EncodeSearch(Console.ReadLine() ?? string.Empty);
         using HttpClient client = new();
-        var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{APIs.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSerach}");
-        foreach (var card in cards.Data)
+        try
         {
-            Console.Write($"• {card.Name}\n");
+            var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{APIs.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSearch}");
+            foreach (var card in cards.Data)
+            {
+                Console.Write($"• {card.Name}\n");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Couldn't Connect with ScryFall! \n ERROR: {e}");
         }
     }
 
