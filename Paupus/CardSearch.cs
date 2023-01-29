@@ -13,7 +13,7 @@ public static class CardSearch
         using HttpClient client = new();
         try
         {
-            var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{APIs.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSearch}");
+            var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{Common.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSearch}");
             foreach (var card in cards.Data)
             {
                 Console.Write($"• {card.Name}\n");

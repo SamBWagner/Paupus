@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5317ea8-d6aa-4716-8580-443a2b8f4d8b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Domain/Common.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Paupus/Runner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Paupus/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Paupus/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Paupus/CardSearch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Paupus/CardSearch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Paupus/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Paupus/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,6 +95,9 @@
       <workItem from="1674258137107" duration="304000" />
       <workItem from="1674368210866" duration="22000" />
       <workItem from="1674378640653" duration="180000" />
+      <workItem from="1674388718793" duration="1241000" />
+      <workItem from="1674525696875" duration="3111000" />
+      <workItem from="1674534539136" duration="1946000" />
     </task>
     <servers />
   </component>
