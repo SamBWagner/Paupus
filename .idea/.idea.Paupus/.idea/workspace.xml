@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5317ea8-d6aa-4716-8580-443a2b8f4d8b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Domain/Common.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Paupus/Runner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/Card.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Paupus/CardReader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Paupus/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Paupus/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Common.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Common.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Paupus/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Paupus/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +30,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -98,6 +100,14 @@
       <workItem from="1674388718793" duration="1241000" />
       <workItem from="1674525696875" duration="3111000" />
       <workItem from="1674534539136" duration="1946000" />
+      <workItem from="1674962321833" duration="312000" />
+      <workItem from="1675137767938" duration="52000" />
+      <workItem from="1675138884513" duration="1618000" />
+      <workItem from="1675719959615" duration="1121000" />
+      <workItem from="1675735385760" duration="609000" />
+      <workItem from="1676294762755" duration="611000" />
+      <workItem from="1676341197019" duration="2840000" />
+      <workItem from="1676347299982" duration="1363000" />
     </task>
     <servers />
   </component>
