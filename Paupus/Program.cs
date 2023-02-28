@@ -1,4 +1,5 @@
-﻿using Paupus;
+﻿using Domain;
+using Infrastructure;
 
 var MODE = 2;
 
@@ -14,7 +15,7 @@ switch (MODE)
         await CardSearch.SearchForCard();
         break;
     case 2:
-        CardReader.ReadCards("C:/Users/Sam Wagner/Desktop/all-folders.csv", "C:/Users/Sam Wagner/Desktop/all-folders.txt");
+        DragonShieldCardReader.ConvertDragonShieldCsvToMtgMateText(new StreamReader(Common.CSV_PATH), "C:/Users/Sam Wagner/Desktop/all-folders.txt");
         break;
 }
 

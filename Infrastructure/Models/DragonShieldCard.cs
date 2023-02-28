@@ -1,12 +1,12 @@
 namespace Domain;
 
-public class Card
+public class DragonShieldCard
 {
     public string FolderName { get; set; }
     public int Quantity { get; set; }
     public int TradeQuantity { get; set; } 
-    public int CardName { get; set; }
-    public int SetCode { get; set; }
+    public string CardName { get; set; }
+    public string SetCode { get; set; }
     public string SetName { get; set; }
     public int CardNumber { get; set; }
     public string Condition { get; set; }
