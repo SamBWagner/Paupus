@@ -12,11 +12,9 @@ public static class DragonShieldCardReader
         {
             do
             {
-                string? line = await inputReader.ReadLineAsync();
-                if (line != null && !line.Contains(Common.CSV_SEPERATOR_STRING_DECLARATION) 
-                                 && !line.Contains(Common.CSV_HEADER_LINE))
+                string[]? lineSections = ParseCsvLine(await inputReader.ReadLineAsync());
+                
                 {
-                    var lineSections = line.Split(",");
                     DragonShieldCard card = new()
                     {
                         FolderName = lineSections[0],
@@ -48,5 +46,16 @@ public static class DragonShieldCardReader
             Console.WriteLine(e);
             throw;
         }
+    }
+
+    private static string[]? ParseCsvLine(string? line)
+    {
+        if (line != null && !line.Contains(Common.CSV_SEPERATOR_STRING_DECLARATION)
+                         && !line.Contains(Common.CSV_HEADER_LINE))
+        {
+            //TODO: parse the shit
+            line.Substring();
+        }
+        return null;
     }
 }
