@@ -1,4 +1,4 @@
-namespace Domain;
+namespace Paupus.Models;
 
 public class Card
 {

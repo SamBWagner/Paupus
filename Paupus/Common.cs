@@ -1,6 +1,6 @@
-namespace Domain;
+namespace Paupus;
 
-public class Common
+public static class Common
 {
     public const string SCRY_FALL_BASE_API = "https://api.scryfall.com";
     public const string CSV_SEPERATOR_STRING_DECLARATION = "sep=";

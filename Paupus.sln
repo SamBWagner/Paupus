@@ -2,10 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paupus", "Paupus\Paupus.csproj", "{161A34B8-4EDD-48D3-9E7F-47DC57F17A5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{3159F914-E558-4DCA-A814-44D1C3FBF7D2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{978B8A94-9DFF-4389-8A01-3871D1D30662}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,13 +12,5 @@ Global
 		{161A34B8-4EDD-48D3-9E7F-47DC57F17A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{161A34B8-4EDD-48D3-9E7F-47DC57F17A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{161A34B8-4EDD-48D3-9E7F-47DC57F17A5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3159F914-E558-4DCA-A814-44D1C3FBF7D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3159F914-E558-4DCA-A814-44D1C3FBF7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3159F914-E558-4DCA-A814-44D1C3FBF7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3159F914-E558-4DCA-A814-44D1C3FBF7D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{978B8A94-9DFF-4389-8A01-3871D1D30662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{978B8A94-9DFF-4389-8A01-3871D1D30662}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{978B8A94-9DFF-4389-8A01-3871D1D30662}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{978B8A94-9DFF-4389-8A01-3871D1D30662}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

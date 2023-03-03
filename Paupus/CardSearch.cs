@@ -1,8 +1,7 @@
 using System.Net.Http.Json;
 using System.Web;
-using Domain;
 
-namespace Infrastructure;
+namespace Paupus;
 
 public static class CardSearch
 {
