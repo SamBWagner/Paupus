@@ -14,7 +14,7 @@ switch (MODE)
         await CardSearch.SearchForCard();
         break;
     case 2:
-        
+        CardParser.ParseLine("New,1,0,\"Aron, Benalia's Ruin\",DMU,Dominaria United,292,NearMint,Normal,English,0.06,2022-09-19,0.01,0.17,0.03");
         break;
 }
 

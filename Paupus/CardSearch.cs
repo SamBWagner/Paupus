@@ -15,7 +15,7 @@ public static class CardSearch
             var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{Common.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSearch}");
             foreach (var card in cards.Data)
             {
-                Console.Write($"• {card.Name}\n");
+                Console.Write($"{card.Name}\n");
             }
         }
         catch (Exception e)
