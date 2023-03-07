@@ -4,29 +4,29 @@ namespace Paupus;
 
 public class CardParser
 {
-    public static async void ConvertDragonShieldCsvToSearchableText(StreamReader inputStream, string outputLocation)
+    public static async void ConvertDragonShieldCsvToSearchableText(StreamReader inputStream, StreamWriter outputWriter)
     {
-        //TODO: output to file
         while (!inputStream.EndOfStream)
         {
-            await using StreamWriter file = new(outputLocation);
-            DragonShieldCard? parsedCard = ParseLine(inputStream.ReadLine());
+            DragonShieldCard? parsedCard = ParseLine(await inputStream.ReadLineAsync());
             if (parsedCard is null) continue;
-            await file.WriteLineAsync($"{parsedCard.Quantity} {parsedCard.CardName}");
+            await outputWriter.WriteLineAsync($"{parsedCard.Quantity} {parsedCard.CardName}");
         }
     }
 
-    public static DragonShieldCard? ParseLine(string? inputLine)
+    private static DragonShieldCard? ParseLine(string? inputLine)
     {
         if (string.IsNullOrEmpty(inputLine)) return null;
+        if (inputLine.Contains(Common.CSV_HEADER_LINE) || 
+            inputLine.Contains(Common.CSV_SEPERATOR_STRING_DECLARATION)) return null;
         List<string> tempStorage = new();
 
-        while(!string.IsNullOrEmpty(inputLine))
+        while(inputLine is not null)
         {
             tempStorage.Add(GetFirstElementOfCsv(inputLine));
-            inputLine = removeFirstElementFromCsvLine(inputLine);
+            inputLine = RemoveFirstElementFromCsvLine(inputLine);
         }
-        
+
         DragonShieldCard outputDragonShieldCard = new()
         {
             FolderName = tempStorage[0],
@@ -35,15 +35,15 @@ public class CardParser
             CardName = tempStorage[3],
             SetCode = tempStorage[4],
             SetName = tempStorage[5],
-            CardNumber = int.Parse(tempStorage[6]),
+            CardNumber = tempStorage[6],
             Condition = tempStorage[7],
             Printing = tempStorage[8],
             Language = tempStorage[9],
-            PriceBought = double.Parse(tempStorage[10]),
-            DateBought = DateTime.Parse(tempStorage[11]),
-            Low = double.Parse(tempStorage[12]),
-            Mid = double.Parse(tempStorage[13]),
-            Market = double.Parse(tempStorage[14])
+            PriceBought = double.Parse(!string.IsNullOrEmpty(tempStorage[10]) ? tempStorage[10] : "0"),
+            DateBought = DateTime.Parse(!string.IsNullOrEmpty(tempStorage[11]) ? tempStorage[11] : null),
+            Low = double.Parse(!string.IsNullOrEmpty(tempStorage[12]) ? tempStorage[12] : "0"),
+            Mid = double.Parse(!string.IsNullOrEmpty(tempStorage[13]) ? tempStorage[13] : "0"),
+            Market = double.Parse(!string.IsNullOrEmpty(tempStorage[14]) ? tempStorage[14] : "0")
         };
 
         return outputDragonShieldCard;
@@ -57,24 +57,21 @@ public class CardParser
         {
             int nextSeparator = input.IndexOf("\",", StringComparison.Ordinal);
 
-            Console.WriteLine(input.Substring(1, nextSeparator - 1));
             return input.Substring(1, nextSeparator - 1);
         }
         
         int indexOfComma = input.IndexOf(",", StringComparison.Ordinal);
         if (indexOfComma == -1)
         {
-            Console.WriteLine(input.Substring(0));
             return input.Substring(0);
         }
 
-        Console.WriteLine(input.Substring(0, indexOfComma));
         return input.Substring(0, indexOfComma);
     }
 
-    static string removeFirstElementFromCsvLine(string input)
+    private static string? RemoveFirstElementFromCsvLine(string input)
     {
-        if (string.IsNullOrEmpty(input)) return string.Empty;
+        if (string.IsNullOrEmpty(input)) return null;
         
         if (input[0] == '"')
         {

@@ -1,4 +1,5 @@
-﻿using Paupus;
+﻿using System.Diagnostics;
+using Paupus;
 
 var MODE = 2;
 
@@ -14,9 +15,13 @@ switch (MODE)
         await CardSearch.SearchForCard();
         break;
     case 2:
-        CardParser.ParseLine("New,1,0,\"Aron, Benalia's Ruin\",DMU,Dominaria United,292,NearMint,Normal,English,0.06,2022-09-19,0.01,0.17,0.03");
-        CardParser.ConvertDragonShieldCsvToSearchableText();
+    {
+        using StreamReader reader = new(Common.CSV_PATH);
+        await using StreamWriter writer = new("C:\\Users\\Sam Wagner\\Desktop\\output.txt");
+        CardParser.ConvertDragonShieldCsvToSearchableText(reader, writer);
+        Process.Start("notepad.exe","C:\\Users\\Sam Wagner\\Desktop\\output.txt");
         break;
+    }
 }
 
 //TODO: View Card
