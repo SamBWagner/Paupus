@@ -12,10 +12,17 @@ public static class CardSearch
         using HttpClient client = new();
         try
         {
-            var cards = await client.GetFromJsonAsync<CardSearchRoot>($"{Common.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSearch}");
-            foreach (var card in cards.Data)
+            CardSearchRoot? cards = await client.GetFromJsonAsync<CardSearchRoot>($"{Common.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSearch}");
+            if (cards != null)
             {
-                Console.Write($"{card.Name}\n");
+                foreach (var card in cards.Data)
+                {
+                    Console.Write($"{card.Name}\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No cards found!");
             }
         }
         catch (Exception e)
