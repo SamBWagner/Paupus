@@ -5,19 +5,28 @@ namespace Paupus;
 
 public static class CardSearch
 {
-    public static async Task SearchForCard()
+    //TODO: Decoupling Console and Scryfall from Search
+    public static async Task<List<Models.Card>> SearchForCards()
     {
+        using HttpClient client = new()
+        {
+            BaseAddress = new Uri(Common.SCRY_FALL_BASE_API)
+        };
+        List<Models.Card> outputCards = new();
+        
         Console.Write("What card would you like to search for?: ");
-        var encodedCardSearch = EncodeSearch(Console.ReadLine() ?? string.Empty);
-        using HttpClient client = new();
+        var encodedCardSearch = HttpUtility.UrlEncode(Console.ReadLine() ?? string.Empty);
+
         try
         {
-            CardSearchRoot? cards = await client.GetFromJsonAsync<CardSearchRoot>($"{Common.SCRY_FALL_BASE_API}/cards/search?q={encodedCardSearch}");
-            if (cards != null)
+            CardSearchRoot? cardSearchResults = await client.GetFromJsonAsync<CardSearchRoot>($"/cards/search?q={encodedCardSearch}");
+            if (cardSearchResults != null)
             {
-                foreach (var card in cards.Data)
+                foreach (var searchCard in cardSearchResults.Data)
                 {
-                    Console.Write($"{card.Name}\n");
+                    //TODO: Get a 'Card' from the API and map
+                    Models.Card card = new Models.Card();
+                    outputCards.Add();
                 }
             }
             else
@@ -29,13 +38,11 @@ public static class CardSearch
         {
             Console.WriteLine($"Couldn't Connect with ScryFall! \n ERROR: {e}");
         }
+        
+        return outputCards;
     }
 
-    private static string EncodeSearch(string cardName)
-    {
-        return HttpUtility.UrlEncode(cardName);
-    }
-
+    //TODO: This is odd. Idk.
     public class CardSearchRoot
     {
         public List<Card> Data { get; set; }
@@ -44,5 +51,15 @@ public static class CardSearch
     public class Card
     {
         public string Name { get; set; }
+    }
+
+    private static void OutputToConsole(List<Card>? cards)
+    {
+        if (cards is null) return;
+
+        foreach (Card card in cards)
+        {
+            Console.Write($"{card.Name}\n");
+        }
     }
 }

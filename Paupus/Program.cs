@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using Paupus;
+using Paupus.Models;
 
-var MODE = 2;
+var MODE = 1;
 
 if (args.Length > 0)
 {
@@ -12,7 +13,7 @@ Console.WriteLine("Welcome to Paupus!");
 switch (MODE)
 {
     case 1:
-        await CardSearch.SearchForCard();
+        List<Card> cards = await CardSearch.SearchForCards();
         break;
     case 2:
     {
