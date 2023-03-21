@@ -13,7 +13,12 @@ Console.WriteLine("Welcome to Paupus!");
 switch (MODE)
 {
     case 1:
-        List<Card> cards = await CardSearch.SearchForCards();
+        string input = ConsolePrompt.Prompt("What card would you like to search for today?:");
+        List<ScryFallCard> cards = await CardSearch.SearchForCards(input);
+        foreach (var card in cards)
+        {
+            Console.WriteLine($"{card.Name}");
+        }
         break;
     case 2:
     {
