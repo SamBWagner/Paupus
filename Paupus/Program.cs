@@ -41,19 +41,6 @@ switch (MODE)
     }
 }
 
-public static class PaupusHttpClient
-{
-    public static HttpClient Client { get; set; }
-
-    static PaupusHttpClient()
-    {
-        Client = new HttpClient()
-        {
-            BaseAddress = new Uri(Common.SCRY_FALL_BASE_API)
-        };
-    }
-}
-
 //TODO: View Card
 //TODO: Store Cards in text file for reading
 //TODO: Read Cards from text file for viewing
