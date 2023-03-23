@@ -9,17 +9,15 @@ public static class CardSearch
 {
     public static async Task<List<ScryFallCard>> SearchForCards(string input)
     {
-        using HttpClient client = new()
-        {
-            BaseAddress = new Uri(Common.SCRY_FALL_BASE_API)
-        };
         var encodedCardSearch = HttpUtility.UrlEncode(input);
         List<ScryFallCard>? cardSearchResults = null!;
+        //TODO: Catch at highest level possible for useful stack traces. Not on the method. Dickhead.
         try
         {
             //TODO: Work out how to map this properly
+            //NOTE: Unable to parse snake case 
             cardSearchResults =
-                await client.GetFromJsonAsync<List<ScryFallCard>>($"/cards/search?q={encodedCardSearch}") ??
+                await PaupusHttpClient.Client.GetFromJsonAsync<List<ScryFallCard>>($"/cards/search?q={encodedCardSearch}") ??
                 throw new NoNullAllowedException();
         }
         catch (NoNullAllowedException e)

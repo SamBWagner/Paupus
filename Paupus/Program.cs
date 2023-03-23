@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using Paupus;
 using Paupus.Models;
 
@@ -13,7 +14,17 @@ Console.WriteLine("Welcome to Paupus!");
 switch (MODE)
 {
     case 1:
-        string input = ConsolePrompt.Prompt("What card would you like to search for today?:");
+        string input;
+        try 
+        {
+            input = ConsolePrompt.Prompt("What card would you like to search for today?:");
+        }
+        catch (NoNullAllowedException e)
+        {
+            Console.WriteLine($"ERROR: Must input a value to Prompt() method \n {e.Message}");
+            return;
+        }
+        
         List<ScryFallCard> cards = await CardSearch.SearchForCards(input);
         foreach (var card in cards)
         {
@@ -30,7 +41,19 @@ switch (MODE)
     }
 }
 
+public static class PaupusHttpClient
+{
+    public static HttpClient Client { get; set; }
+
+    static PaupusHttpClient()
+    {
+        Client = new HttpClient()
+        {
+            BaseAddress = new Uri(Common.SCRY_FALL_BASE_API)
+        };
+    }
+}
+
 //TODO: View Card
 //TODO: Store Cards in text file for reading
 //TODO: Read Cards from text file for viewing
-
