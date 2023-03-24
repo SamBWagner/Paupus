@@ -7,7 +7,7 @@ A command line tool for Magic the Gathering
 2. Change into the repository's directory with cd `./Paupus`
 3. Run the command `dotnet build --configuration Release`
 4. Navigate to the release build folder with `cd ./Paupus/bin/Release`
-5. Run the program with `./Paupus` [ 1 | 2 ] 
+5. Run the program with `./Paupus [ 1 | 2 ]` 
 
 ## Modes
 
