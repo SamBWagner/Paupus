@@ -24,8 +24,25 @@ switch (MODE)
             Console.WriteLine($"ERROR: Must input a value to Prompt() method \n {e.Message}");
             return;
         }
+
+        List<ScryFallCard> cards;
         
-        List<ScryFallCard> cards = await CardSearch.SearchForCards(input);
+        try
+        {
+            cards = await CardSearch.SearchForCards(input);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return;
+        }
+
+        if (cards.Count == 0)
+        {
+            Console.WriteLine("No Cards Found.");
+            return;
+        }
+
         foreach (var card in cards)
         {
             Console.WriteLine($"{card.Name}");
