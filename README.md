@@ -16,7 +16,7 @@ The application currently supports 2 modes:
 1. Card Search mode
 2. DragonShield CSV to MTGMate text list converter*
 
-* This is not working
+*\* This is not working*
 
 ## F5 Experience
 
