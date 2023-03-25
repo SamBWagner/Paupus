@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Paupus;
 using Paupus.Models;
 
-var MODE = 1;
+var MODE = 3;
 
 if (args.Length > 0)
 {
@@ -54,8 +54,22 @@ switch (MODE)
         await using StreamWriter writer = new("C:\\Users\\Sam Wagner\\Desktop\\output.txt");
         CardParser.ConvertDragonShieldCsvToSearchableText(reader, writer);
         Process.Start("notepad.exe","C:\\Users\\Sam Wagner\\Desktop\\output.txt");
+        break; 
+    }
+    case 3:
+    {
+        using StreamReader reader = new(Common.CSV_PATH);
+        List<DragonShieldCard?> dragonShieldCards = await CardParser.GetFromDragonShieldCSV(reader);
+        Console.WriteLine("".PadRight(40, '-'));
+        foreach (var dragonShieldCard in dragonShieldCards)
+        {
+            if (dragonShieldCard is null) continue;
+            ConsolePrompt.PrintCard(dragonShieldCard);
+        }
+        Console.WriteLine("".PadRight(40, '-'));
         break;
     }
+
 }
 
 //TODO: View Card

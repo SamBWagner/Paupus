@@ -4,6 +4,18 @@ namespace Paupus;
 
 public class CardParser
 {
+    public static async Task<List<DragonShieldCard?>> GetFromDragonShieldCSV(StreamReader inputStream)
+    {
+        List<DragonShieldCard?> cards = new();
+
+        while (!inputStream.EndOfStream)
+        {
+            cards.Add(ParseLine(await inputStream.ReadLineAsync()));
+        }
+        
+        return cards;
+    }
+    
     public static async void ConvertDragonShieldCsvToSearchableText(StreamReader inputStream, StreamWriter outputWriter)
     {
         while (!inputStream.EndOfStream)
