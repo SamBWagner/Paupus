@@ -60,13 +60,14 @@ switch (MODE)
     {
         using StreamReader reader = new(Common.CSV_PATH);
         List<DragonShieldCard?> dragonShieldCards = await CardParser.GetFromDragonShieldCSV(reader);
-        Console.WriteLine("".PadRight(40, '-'));
+        var cardCount = 0;
         foreach (var dragonShieldCard in dragonShieldCards)
         {
+            cardCount++;
             if (dragonShieldCard is null) continue;
             ConsolePrompt.PrintCard(dragonShieldCard);
         }
-        Console.WriteLine("".PadRight(40, '-'));
+        Console.WriteLine($"Total: {cardCount}".PadRight(40, ' '));
         break;
     }
 

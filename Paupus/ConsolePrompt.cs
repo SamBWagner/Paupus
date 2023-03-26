@@ -5,6 +5,9 @@ namespace Paupus;
 
 public class ConsolePrompt
 {
+    private static int TotalWriteWidth { get; set; } = 40;
+    private static int ConsoleWriteWidth { get; set; } = 30;
+    
     public static string Prompt(string prompt)
     {
         Console.Write(prompt);
@@ -13,16 +16,19 @@ public class ConsolePrompt
 
     public static void PrintCard(DragonShieldCard card)
     {
-        var consoleWriteWidth = 30;
-        var innerContentWidth = card.CardName.Length + nameof(card.CardName).Length;
-        var offset = consoleWriteWidth - innerContentWidth;
+        var innerContentWidth = card.CardName.Length;
+        var offset = ConsoleWriteWidth - innerContentWidth;
+        Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
+
         if (offset < 0)
         {
             var truncatedCard = $"{card.CardName.Substring(0, card.CardName.Length + offset - 3)}...";
-            Console.WriteLine($"--- {nameof(card.CardName)}: {truncatedCard} ---");
+            Console.WriteLine($"--- {truncatedCard} ---");
             return;
         }
-        Console.WriteLine($"--- {nameof(card.CardName)}: {card.CardName}".PadRight(37, ' ') + "---");
+        Console.WriteLine($"--- {card.CardName}".PadRight(37, ' ') + "---");
+        Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
+
     }
     
 }
