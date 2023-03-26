@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Paupus;
 using Paupus.Models;
 
-var MODE = 3;
+var MODE = 2;
 
 if (args.Length > 0)
 {
@@ -51,9 +51,8 @@ switch (MODE)
     case 2:
     {
         using StreamReader reader = new(Common.CSV_PATH);
-        await using StreamWriter writer = new("C:\\Users\\Sam Wagner\\Desktop\\output.txt");
+        await using StreamWriter writer = new("./output.txt");
         CardParser.ConvertDragonShieldCsvToSearchableText(reader, writer);
-        Process.Start("notepad.exe","C:\\Users\\Sam Wagner\\Desktop\\output.txt");
         break; 
     }
     case 3:
