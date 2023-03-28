@@ -2,17 +2,17 @@
 using Paupus;
 using Paupus.Models;
 
-var MODE = 2;
+var mode = Modes.View;
 
 if (args.Length > 0)
 {
-    MODE = int.Parse(args[0]);
+    mode = Enum.Parse<Modes>(args[0]);
 }
 
 Console.WriteLine("Welcome to Paupus!");
-switch (MODE)
+switch (mode)
 {
-    case 1:
+    case Modes.Search:
         string input;
         try 
         {
@@ -47,14 +47,14 @@ switch (MODE)
             Console.WriteLine($"{card.Name}");
         }
         break;
-    case 2:
+    case Modes.Convert:
     {
         using StreamReader reader = new(Common.CSV_PATH);
         await using StreamWriter writer = new("./output.txt");
         CardParser.ConvertDragonShieldCsvToSearchableText(reader, writer);
         break; 
     }
-    case 3:
+    case Modes.View:
     {
         using StreamReader reader = new(Common.CSV_PATH);
         List<DragonShieldCard?> dragonShieldCards = await CardParser.GetFromDragonShieldCsv(reader);
