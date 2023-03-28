@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Diagnostics;
 using Paupus;
 using Paupus.Models;
 
@@ -58,7 +57,7 @@ switch (MODE)
     case 3:
     {
         using StreamReader reader = new(Common.CSV_PATH);
-        List<DragonShieldCard?> dragonShieldCards = await CardParser.GetFromDragonShieldCSV(reader);
+        List<DragonShieldCard?> dragonShieldCards = await CardParser.GetFromDragonShieldCsv(reader);
         var cardCount = 0;
         foreach (var dragonShieldCard in dragonShieldCards)
         {
