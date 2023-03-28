@@ -7,7 +7,11 @@ public class ConsolePrompt
 {
     private static int TotalWriteWidth { get; set; } = 40;
     private static int ConsoleWriteWidth { get; set; } = 30;
-    
+    private static string Starter { get; set; } = "--- ";
+    private static int StarterLength { get; set; } = Starter.Length;
+    private static string Ender { get; set; } = " ---";
+    private static int EnderLength { get; set; } = Ender.Length;
+
     public static string Prompt(string prompt)
     {
         Console.Write(prompt);
@@ -23,12 +27,17 @@ public class ConsolePrompt
         if (offset < 0)
         {
             var truncatedCard = $"{card.CardName.Substring(0, card.CardName.Length + offset - 3)}...";
-            Console.WriteLine($"--- {truncatedCard} ---");
+            Console.WriteLine($"{Starter}{truncatedCard}{Ender}");
             return;
         }
-        Console.WriteLine($"--- {card.CardName}".PadRight(37, ' ') + "---");
+        Console.WriteLine($"{Starter}{card.CardName}".PadRight(TotalWriteWidth - EnderLength, ' ') + $"{Ender}");
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
+    }
 
+    // TODO: Left align name and right align cmc
+    public static void PrintCardHeadline(string name, string cmc)
+    {
+        // Console.WriteLine($"{Starter}{name}" + $"{cmc}{Ender}".PadLeft());
     }
     
 }
