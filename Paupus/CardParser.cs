@@ -4,7 +4,7 @@ namespace Paupus;
 
 public class CardParser
 {
-    public static async Task<List<DragonShieldCard?>> GetFromDragonShieldCSV(StreamReader inputStream)
+    public static async Task<List<DragonShieldCard?>> GetFromDragonShieldCsv(StreamReader inputStream)
     {
         List<DragonShieldCard?> cards = new();
 
