@@ -17,4 +17,22 @@ public class DragonShieldCard
     public double Low { get; set; }
     public double Mid { get; set; }
     public double Market { get; set; }
+
+    public Card ToCard()
+    {
+        return new Card()
+        {
+            Name = CardName,
+            OracleText = string.Empty,
+            Power = string.Empty,
+            Toughness = string.Empty,
+            Cmc = -1,
+            ManaCost = string.Empty,
+            Quantity = Quantity,
+            SetCode = SetCode,
+            SetName = SetName,
+            CardNumber = CardNumber
+
+        };
+    }
 }

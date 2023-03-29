@@ -18,13 +18,13 @@ public class ConsolePrompt
         return Console.ReadLine() ?? throw new NoNullAllowedException();
     }
 
-    public static void PrintCard(DragonShieldCard card)
+    public static void PrintCard(Card card)
     {
-        var innerContentWidth = card.CardName.Length;
+        var innerContentWidth = card.Name.Length;
         var offset = ConsoleWriteWidth - innerContentWidth;
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
 
-        PrintCardHeadline(card.CardName, "{2}{g}{u}");
+        PrintCardHeadline(card.Name, "{2}{g}{u}");
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
     }
 

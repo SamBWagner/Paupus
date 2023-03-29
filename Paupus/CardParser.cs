@@ -1,18 +1,28 @@
+using System.Data;
 using Paupus.Models;
 
 namespace Paupus;
 
 public class CardParser
 {
-    public static async Task<List<DragonShieldCard?>> GetFromDragonShieldCsv(StreamReader inputStream)
+    public static async Task<List<Card>> GetFromDragonShieldCsv(StreamReader inputStream)
     {
-        List<DragonShieldCard?> cards = new();
+        List<Card> cards = new();
 
         while (!inputStream.EndOfStream)
         {
-            cards.Add(ParseLine(await inputStream.ReadLineAsync()));
+            DragonShieldCard? dragonShieldCard = ParseLine(await inputStream.ReadLineAsync());
+            if (dragonShieldCard is not null)
+            {
+                cards.Add(dragonShieldCard.ToCard());
+            }
         }
-        
+
+        if (cards.Count < 1)
+        {
+            throw new ConstraintException($"A List with no Cards is not an acceptable value to return from {nameof(GetFirstElementOfCsv)}()");
+        } 
+            
         return cards;
     }
     

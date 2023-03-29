@@ -24,11 +24,11 @@ switch (mode)
             return;
         }
 
-        List<ScryFallCard> cards;
+        List<ScryFallCard> scryfallCards;
         
         try
         {
-            cards = await CardSearch.SearchForCards(input);
+            scryfallCards = await CardSearch.SearchForCards(input);
         }
         catch (Exception e)
         {
@@ -36,13 +36,13 @@ switch (mode)
             return;
         }
 
-        if (cards.Count == 0)
+        if (scryfallCards.Count == 0)
         {
             Console.WriteLine("No Cards Found.");
             return;
         }
 
-        foreach (var card in cards)
+        foreach (var card in scryfallCards)
         {
             Console.WriteLine($"{card.Name}");
         }
@@ -57,13 +57,12 @@ switch (mode)
     case Modes.View:
     {
         using StreamReader reader = new(Common.CSV_PATH);
-        List<DragonShieldCard?> dragonShieldCards = await CardParser.GetFromDragonShieldCsv(reader);
+        List<Card> cards = await CardParser.GetFromDragonShieldCsv(reader);
         var cardCount = 0;
-        foreach (var dragonShieldCard in dragonShieldCards)
+        foreach (var card in cards)
         {
             cardCount++;
-            if (dragonShieldCard is null) continue;
-            ConsolePrompt.PrintCard(dragonShieldCard);
+            ConsolePrompt.PrintCard(card);
         }
         Console.WriteLine($"Total: {cardCount}".PadRight(40, ' '));
         break;
