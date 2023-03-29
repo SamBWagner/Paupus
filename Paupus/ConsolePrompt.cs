@@ -24,20 +24,21 @@ public class ConsolePrompt
         var offset = ConsoleWriteWidth - innerContentWidth;
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
 
-        if (offset < 0)
-        {
-            var truncatedCard = $"{card.CardName.Substring(0, card.CardName.Length + offset - 3)}...";
-            Console.WriteLine($"{Starter}{truncatedCard}{Ender}");
-            return;
-        }
-        Console.WriteLine($"{Starter}{card.CardName}".PadRight(TotalWriteWidth - EnderLength, ' ') + $"{Ender}");
+        PrintCardHeadline(card.CardName, "{2}{g}{u}");
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
     }
 
     // TODO: Left align name and right align cmc
     public static void PrintCardHeadline(string name, string cmc)
     {
-        // Console.WriteLine($"{Starter}{name}" + $"{cmc}{Ender}".PadLeft());
+        var totalInput =
+            StarterLength + name.Length + cmc.Length + EnderLength;
+        if (totalInput > TotalWriteWidth)
+        {
+            name = $"{name.Substring(0, TotalWriteWidth - (StarterLength + EnderLength + cmc.Length + 3))}...";
+        }
+        //TODO: Fix normal output. Mafs == hard
+        Console.WriteLine($"{Starter}{name}".PadRight(TotalWriteWidth - (StarterLength + name.Length), ' ') + $"{cmc}{Ender}");
     }
     
 }
