@@ -28,7 +28,6 @@ public class ConsolePrompt
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
     }
 
-    // TODO: Left align name and right align cmc
     public static void PrintCardHeadline(string name, string cmc)
     {
         var totalInput =
