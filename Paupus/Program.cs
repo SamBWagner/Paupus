@@ -26,6 +26,7 @@ switch (mode)
 
         List<ScryFallCard> scryfallCards;
         
+        // TODO: Catching a big exception is stinky. More specific. Logging to string is stinky too.
         try
         {
             scryfallCards = await CardSearch.SearchForCards(input);
@@ -69,7 +70,3 @@ switch (mode)
     }
 
 }
-
-//TODO: View Card
-//TODO: Store Cards in text file for reading
-//TODO: Read Cards from text file for viewing
