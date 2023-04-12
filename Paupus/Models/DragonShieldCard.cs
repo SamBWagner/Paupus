@@ -20,7 +20,7 @@ public class DragonShieldCard
 
     public Card ToCard()
     {
-        return new Card()
+        return new Card
         {
             Name = CardName,
             OracleText = string.Empty,
