@@ -26,6 +26,9 @@ public class ConsolePrompt
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
 
         PrintCardHeadline(card.Name, "{2}{g}{u}");
+        PrintCardSeparator();
+        PrintTypeLine("Creature - Goblin" , "DMR");
+        PrintCardSeparator();
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
     }
 
@@ -40,5 +43,20 @@ public class ConsolePrompt
         }
         Console.WriteLine($"{Starter}{name}".PadRight(TotalWriteWidth - (cmc.Length + EnderLength), ' ') + $"{cmc}{Ender}");
     }
-    
+
+    public static void PrintCardSeparator()
+    {
+         Console.WriteLine(Starter + "".PadRight(ConsoleWriteWidth + 2, '*') + Ender);
+    }
+    public static void PrintTypeLine(string typeLine, string setCode)
+    {
+         var totalInput =
+             StarterLength + typeLine.Length + setCode.Length + EnderLength;
+         if (totalInput > TotalWriteWidth)
+         {
+             typeLine = $"{typeLine.Substring(0, TotalWriteWidth - (StarterLength + EnderLength + setCode.Length + 3))}...";
+         }
+        
+         Console.WriteLine($"{Starter}{typeLine}".PadRight(TotalWriteWidth - (setCode.Length + EnderLength), ' ') + $"{setCode}{Ender}");
+    }
 }
