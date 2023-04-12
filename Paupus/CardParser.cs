@@ -18,10 +18,10 @@ public class CardParser
             }
         }
 
-        if (cards.Count < 1)
+        if (!cards.Any())
         {
-            throw new ConstraintException($"A List with no Cards is not an acceptable value to return from {nameof(GetFirstElementOfCsv)}()");
-        } 
+            throw new ConstraintException($"A List with no Cards is not an acceptable value to return from {nameof(GetFromDragonShieldCsv)}()");
+        }
             
         return cards;
     }
@@ -41,31 +41,31 @@ public class CardParser
         if (string.IsNullOrEmpty(inputLine)) return null;
         if (inputLine.Contains(Common.CSV_HEADER_LINE) || 
             inputLine.Contains(Common.CSV_SEPERATOR_STRING_DECLARATION)) return null;
-        List<string> tempStorage = new();
+        List<string> columns = new();
 
         while(inputLine is not null)
         {
-            tempStorage.Add(GetFirstElementOfCsv(inputLine));
+            columns.Add(GetFirstElementOfCsv(inputLine));
             inputLine = RemoveFirstElementFromCsvLine(inputLine);
         }
 
         DragonShieldCard outputDragonShieldCard = new()
         {
-            FolderName = tempStorage[0],
-            Quantity = int.Parse(tempStorage[1]),
-            TradeQuantity = int.Parse(tempStorage[2]),
-            CardName = tempStorage[3],
-            SetCode = tempStorage[4],
-            SetName = tempStorage[5],
-            CardNumber = tempStorage[6],
-            Condition = tempStorage[7],
-            Printing = tempStorage[8],
-            Language = tempStorage[9],
-            PriceBought = double.Parse(!string.IsNullOrEmpty(tempStorage[10]) ? tempStorage[10] : "0"),
-            DateBought = DateTime.Parse(!string.IsNullOrEmpty(tempStorage[11]) ? tempStorage[11] : null),
-            Low = double.Parse(!string.IsNullOrEmpty(tempStorage[12]) ? tempStorage[12] : "0"),
-            Mid = double.Parse(!string.IsNullOrEmpty(tempStorage[13]) ? tempStorage[13] : "0"),
-            Market = double.Parse(!string.IsNullOrEmpty(tempStorage[14]) ? tempStorage[14] : "0")
+            FolderName = columns[0],
+            Quantity = int.Parse(columns[1]),
+            TradeQuantity = int.Parse(columns[2]),
+            CardName = columns[3],
+            SetCode = columns[4],
+            SetName = columns[5],
+            CardNumber = columns[6],
+            Condition = columns[7],
+            Printing = columns[8],
+            Language = columns[9],
+            PriceBought = double.Parse(!string.IsNullOrEmpty(columns[10]) ? columns[10] : "0"),
+            DateBought = DateTime.Parse(!string.IsNullOrEmpty(columns[11]) ? columns[11] : null),
+            Low = double.Parse(!string.IsNullOrEmpty(columns[12]) ? columns[12] : "0"),
+            Mid = double.Parse(!string.IsNullOrEmpty(columns[13]) ? columns[13] : "0"),
+            Market = double.Parse(!string.IsNullOrEmpty(columns[14]) ? columns[14] : "0")
         };
 
         return outputDragonShieldCard;
