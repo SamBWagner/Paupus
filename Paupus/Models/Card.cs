@@ -12,5 +12,5 @@ public class Card
     public string SetCode { get; set; }
     public string SetName { get; set; }
     public string CardNumber { get; set; }
-    
+    public string TypeLine { get; set; } 
 }
