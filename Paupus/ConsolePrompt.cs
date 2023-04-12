@@ -19,7 +19,6 @@ public class ConsolePrompt
         return Console.ReadLine() ?? throw new NoNullAllowedException();
     }
 
-    // TODO: Refactor to have the PrintCard method simply print a square that takes a formatted string
     public static void PrintCard(Card card)
     {
         var innerContentWidth = card.Name.Length;
