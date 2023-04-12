@@ -3,6 +3,7 @@ using Paupus.Models;
 
 namespace Paupus;
 
+// TODO: Console.Width is a thing lol use it
 public class ConsolePrompt
 {
     private static int TotalWriteWidth { get; set; } = 40;
@@ -18,6 +19,7 @@ public class ConsolePrompt
         return Console.ReadLine() ?? throw new NoNullAllowedException();
     }
 
+    // TODO: Refactor to have the PrintCard method simply print a square that takes a formatted string
     public static void PrintCard(Card card)
     {
         var innerContentWidth = card.Name.Length;
@@ -28,6 +30,7 @@ public class ConsolePrompt
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
     }
 
+    // TODO: This should simply take the card, and then format a string to be rendered by the UI framework above
     public static void PrintCardHeadline(string name, string cmc)
     {
         var totalInput =
@@ -36,8 +39,7 @@ public class ConsolePrompt
         {
             name = $"{name.Substring(0, TotalWriteWidth - (StarterLength + EnderLength + cmc.Length + 3))}...";
         }
-        //TODO: Fix normal output. Mafs == hard
-        Console.WriteLine($"{Starter}{name}".PadRight(TotalWriteWidth - (StarterLength + name.Length), ' ') + $"{cmc}{Ender}");
+        Console.WriteLine($"{Starter}{name}".PadRight(TotalWriteWidth - (cmc.Length + EnderLength), ' ') + $"{cmc}{Ender}");
     }
     
 }
