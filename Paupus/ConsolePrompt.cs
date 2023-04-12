@@ -29,10 +29,11 @@ public class ConsolePrompt
         PrintCardSeparator();
         PrintTypeLine("Creature - Goblin" , "DMR");
         PrintCardSeparator();
+        PrintOracleText("{1}{R}: Goblins you control get +1/+0 and gain haste until end of turn.\nPack tactics — Whenever Battle Cry Goblin attacks, if you attacked with creatures with total power 6 or greater this combat, create a 1/1 red Goblin creature token that's tapped and attacking.");
+        
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
     }
 
-    // TODO: This should simply take the card, and then format a string to be rendered by the UI framework above
     public static void PrintCardHeadline(string name, string cmc)
     {
         var totalInput =
@@ -58,5 +59,34 @@ public class ConsolePrompt
          }
         
          Console.WriteLine($"{Starter}{typeLine}".PadRight(TotalWriteWidth - (setCode.Length + EnderLength), ' ') + $"{setCode}{Ender}");
+    }
+
+    public static void PrintOracleText(string oracleText)
+    {
+        if (string.IsNullOrWhiteSpace(oracleText)) 
+            throw new NoNullAllowedException("Oracle text was null or empty in PrintOracleText method");
+        
+        List<string> sections = new();
+       
+        var newLine = oracleText.IndexOf("\n");
+        do
+        {
+            sections.Add(oracleText.Substring(0, newLine));
+            oracleText = oracleText.Substring(newLine + 1);
+            newLine = oracleText.IndexOf("\n");
+        } while (newLine != -1);
+
+        if (oracleText.Length > 0) 
+        {
+            sections.Add(oracleText); 
+        }
+        
+        // format sections
+
+        // print sections
+        foreach (var section in sections)
+        {
+            Console.WriteLine($"{Starter}{section}{Ender}");
+        }
     }
 }
