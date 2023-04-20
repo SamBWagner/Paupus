@@ -7,7 +7,7 @@ namespace Paupus;
 public class ConsolePrompt
 {
     private static int TotalWriteWidth { get; set; } = 40;
-    private static int ConsoleWriteWidth { get; set; } = 30;
+    private static int InnerWriteWidth { get; set; } = 30;
     private static string Starter { get; set; } = "--- ";
     private static int StarterLength { get; set; } = Starter.Length;
     private static string Ender { get; set; } = " ---";
@@ -22,7 +22,7 @@ public class ConsolePrompt
     public static void PrintCard(Card card)
     {
         var innerContentWidth = card.Name.Length;
-        var offset = ConsoleWriteWidth - innerContentWidth;
+        var offset = InnerWriteWidth - innerContentWidth;
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
 
         PrintCardHeadline(card.Name, "{2}{g}{u}");
@@ -47,7 +47,7 @@ public class ConsolePrompt
 
     public static void PrintCardSeparator()
     {
-         Console.WriteLine(Starter + "".PadRight(ConsoleWriteWidth + 2, '*') + Ender);
+         Console.WriteLine(Starter + "".PadRight(InnerWriteWidth + 2, '*') + Ender);
     }
     public static void PrintTypeLine(string typeLine, string setCode)
     {
@@ -65,23 +65,46 @@ public class ConsolePrompt
     {
         if (string.IsNullOrWhiteSpace(oracleText)) 
             throw new NoNullAllowedException("Oracle text was null or empty in PrintOracleText method");
-        
-        List<string> sections = new();
-       
-        var newLine = oracleText.IndexOf("\n");
-        do
-        {
-            sections.Add(oracleText.Substring(0, newLine));
-            oracleText = oracleText.Substring(newLine + 1);
-            newLine = oracleText.IndexOf("\n");
-        } while (newLine != -1);
 
-        if (oracleText.Length > 0) 
+        // TODO: Add new line character handleing
+        // TODO: Pad the output to fit into the card's width.
+        if (oracleText.Length < InnerWriteWidth)
         {
-            sections.Add(oracleText); 
+            Console.WriteLine($"{Starter}{oracleText}{Ender}");
+            return;
         }
+
+        var sections = new List<string>(); 
         
-        // format sections
+        // Find the end of lines
+        int backCounter = InnerWriteWidth;
+        char letter = oracleText[backCounter];
+        string line;
+        
+        while (oracleText.Length > 0)
+        {
+            if (oracleText.Length < InnerWriteWidth)
+            {
+                line = oracleText.Substring(1);
+                sections.Add(oracleText.Substring(1).PadRight(TotalWriteWidth - StarterLength - line.Length, ' '));
+                break;
+            }
+            
+            while (letter != ' ')
+            {
+                backCounter--;
+                letter = oracleText[backCounter];
+            }
+           
+            line = oracleText.Substring(0, backCounter);
+            sections.Add(oracleText.Substring(0, backCounter).PadRight(TotalWriteWidth - StarterLength - line.Length, ' '));
+            oracleText = oracleText.Substring(backCounter);
+            backCounter = InnerWriteWidth;
+            if (oracleText.Length >= InnerWriteWidth)
+            {
+                letter = oracleText[backCounter];
+            }
+        }
 
         // print sections
         foreach (var section in sections)
