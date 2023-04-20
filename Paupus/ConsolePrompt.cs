@@ -32,6 +32,7 @@ public class ConsolePrompt
         PrintOracleText("{1}{R}: Goblins you control get +1/+0 and gain haste until end of turn.\nPack tactics — Whenever Battle Cry Goblin attacks, if you attacked with creatures with total power 6 or greater this combat, create a 1/1 red Goblin creature token that's tapped and attacking.");
         
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
+        Console.WriteLine();
     }
 
     public static void PrintCardHeadline(string name, string cmc)
@@ -62,12 +63,12 @@ public class ConsolePrompt
     }
 
     public static void PrintOracleText(string oracleText)
+    
     {
         if (string.IsNullOrWhiteSpace(oracleText)) 
             throw new NoNullAllowedException("Oracle text was null or empty in PrintOracleText method");
 
-        // TODO: Add new line character handleing
-        // TODO: Pad the output to fit into the card's width.
+        // TODO: Add new line character handling
         if (oracleText.Length < InnerWriteWidth)
         {
             Console.WriteLine($"{Starter}{oracleText}{Ender}");
@@ -85,9 +86,16 @@ public class ConsolePrompt
         {
             if (oracleText.Length < InnerWriteWidth)
             {
-                line = oracleText.Substring(1);
-                sections.Add(oracleText.Substring(1).PadRight(TotalWriteWidth - StarterLength - line.Length, ' '));
+                sections.Add(oracleText.Substring(0));
                 break;
+            }
+
+            var index = oracleText.Substring(0, backCounter).IndexOf('\n');
+            if (index != -1)
+            {
+                sections.Add(oracleText.Substring(0, index));
+                sections.Add("");
+                oracleText = oracleText.Substring(index + 1);
             }
             
             while (letter != ' ')
@@ -97,8 +105,8 @@ public class ConsolePrompt
             }
            
             line = oracleText.Substring(0, backCounter);
-            sections.Add(oracleText.Substring(0, backCounter).PadRight(TotalWriteWidth - StarterLength - line.Length, ' '));
-            oracleText = oracleText.Substring(backCounter);
+            sections.Add(oracleText.Substring(0, backCounter));
+            oracleText = oracleText.Substring(backCounter + 1);
             backCounter = InnerWriteWidth;
             if (oracleText.Length >= InnerWriteWidth)
             {
@@ -109,7 +117,7 @@ public class ConsolePrompt
         // print sections
         foreach (var section in sections)
         {
-            Console.WriteLine($"{Starter}{section}{Ender}");
+            Console.WriteLine($"{Starter}{section.PadRight(InnerWriteWidth + 2)}{Ender}");
         }
     }
 }
