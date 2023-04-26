@@ -12,5 +12,7 @@ public class Card
     public string SetCode { get; set; }
     public string SetName { get; set; }
     public string CardNumber { get; set; }
-    public string TypeLine { get; set; } 
+    public string TypeLine { get; set; }
+    
+    //TODO: Make static method which maps from yucky scryfall card -> Card
 }

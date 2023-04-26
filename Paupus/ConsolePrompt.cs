@@ -61,9 +61,9 @@ public class ConsolePrompt
         
          Console.WriteLine($"{Starter}{typeLine}".PadRight(TotalWriteWidth - (setCode.Length + EnderLength), ' ') + $"{setCode}{Ender}");
     }
-
-    public static void PrintOracleText(string oracleText)
     
+    //TODO: Refactor and use list cumulation rather than reverse read header
+    public static void PrintOracleText(string oracleText)
     {
         if (string.IsNullOrWhiteSpace(oracleText)) 
             throw new NoNullAllowedException("Oracle text was null or empty in PrintOracleText method");
