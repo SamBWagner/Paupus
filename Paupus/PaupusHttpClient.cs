@@ -6,7 +6,7 @@ public static class PaupusHttpClient
 
     static PaupusHttpClient()
     {
-        Client = new HttpClient()
+        Client = new HttpClient
         {
             BaseAddress = new Uri(Common.SCRY_FALL_BASE_API)
         };

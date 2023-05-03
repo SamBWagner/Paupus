@@ -2,7 +2,7 @@
 using Paupus;
 using Paupus.Models;
 
-var mode = Modes.View;
+var mode = Modes.Search;
 
 if (args.Length > 0)
 {
@@ -12,6 +12,7 @@ if (args.Length > 0)
 Console.WriteLine("Welcome to Paupus!");
 switch (mode)
 {
+    // TODO: Make this work with a full Scryfall Card
     case Modes.Search:
         string input;
         try 
@@ -24,7 +25,7 @@ switch (mode)
             return;
         }
 
-        List<ScryFallCard> scryfallCards;
+        List<Card> scryfallCards;
         
         // TODO: Catching a big exception is stinky. More specific. Logging to string is stinky too.
         try
