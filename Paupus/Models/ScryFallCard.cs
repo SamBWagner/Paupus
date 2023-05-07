@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Paupus.Models;
 
 public class ScryFallCard
@@ -18,10 +20,14 @@ public class ScryFallCard
 	public bool HasHighResImage { get; set; }
 	public string ImageStatus { get; set; }
 	public Dictionary<string, string> ImageUris { get; set; }
+	[JsonPropertyName("mana_cost")]
 	public string ManaCost { get; set; }
-	public string ConvertedManaCost { get; set; }
+	[JsonPropertyName("cmc")]
+	public double ConvertedManaCost { get; set; }
+	[JsonPropertyName("type_line")]
 	public string TypeLine { get; set; }
-	public string OracleText { get; set; }
+	[JsonPropertyName("oracle_text")]
+	public string? OracleText { get; set; }
 	public string Power { get; set; }
 	public string Toughness { get; set; }
 	public List<string> Colors { get; set; }
@@ -37,11 +43,15 @@ public class ScryFallCard
 	public bool isPromo { get; set; }
 	public bool IsVariation { get; set; }
 	public Guid SetId { get; set; }
+	[JsonPropertyName("set")]
 	public string SetCode { get; set; }
+	[JsonPropertyName("set_name")]
 	public string SetName { get; set; }
+	[JsonPropertyName("set_uri")]
 	public string SetUri { get; set; }
 	public string RulingsUri { get; set; }
 	public string PrintsSearchUri { get; set; }
+	[JsonPropertyName("collector_number")]
 	public string CollectorNumber { get; set; }
 	public bool IsDigital { get; set; }
 	public string Rarity { get; set; }

@@ -23,11 +23,11 @@ public class ConsolePrompt
     {
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
 
-        PrintCardHeadline(card.Name, card.ConvertedManaCost);
+        PrintCardHeadline(card.Name, card.ManaCost);
         PrintCardSeparator();
         PrintTypeLine(card.TypeLine , card.SetCode);
         PrintCardSeparator();
-        PrintOracleText(card.OracleText);
+        PrintOracleText(card?.OracleText ?? string.Empty);
         
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
         Console.WriteLine();
@@ -61,14 +61,21 @@ public class ConsolePrompt
     }
     
     //TODO: Refactor and use list cumulation rather than reverse read header
-    public static void PrintOracleText(string oracleText)
+    public static void PrintOracleText(string? oracleText)
     {
-        if (string.IsNullOrWhiteSpace(oracleText)) 
-            throw new NoNullAllowedException("Oracle text was null or empty in PrintOracleText method");
 
+        // Console.WriteLine("Writting Card...");
+        // Console.WriteLine($"Current oracle text is: {oracleText}");
+        if (string.IsNullOrWhiteSpace(oracleText))
+        {
+            Console.WriteLine($"{Starter}'No oracle text".PadRight(TotalWriteWidth - EnderLength, ' ') + $"{Ender}");
+            return;
+        }
+        
         // TODO: Add new line character handling
         if (oracleText.Length < InnerWriteWidth)
         {
+            // Console.WriteLine($"Is the string shorter than the write width?: {oracleText.Length < InnerWriteWidth}");
             Console.WriteLine($"{Starter}{oracleText}{Ender}");
             return;
         }
@@ -76,19 +83,19 @@ public class ConsolePrompt
         var sections = new List<string>(); 
         
         // Find the end of lines
-        int backCounter = InnerWriteWidth;
-        char letter = oracleText[backCounter];
-        string line;
+        int backwardReadHead = InnerWriteWidth - 1;
+        char letter = oracleText[backwardReadHead];
         
         while (oracleText.Length > 0)
         {
             if (oracleText.Length < InnerWriteWidth)
             {
+                // Console.WriteLine($"Is the string shorter than the write width?: {oracleText.Length < InnerWriteWidth}");
                 sections.Add(oracleText.Substring(0));
                 break;
             }
 
-            var index = oracleText.Substring(0, backCounter).IndexOf('\n');
+            var index = oracleText.Substring(0, backwardReadHead).IndexOf('\n');
             if (index != -1)
             {
                 sections.Add(oracleText.Substring(0, index));
@@ -98,17 +105,18 @@ public class ConsolePrompt
             
             while (letter != ' ')
             {
-                backCounter--;
-                letter = oracleText[backCounter];
+                // Console.WriteLine($"{oracleText} Length: {oracleText.Length}");
+                // Console.WriteLine($"ReadheadValue: {backwardReadHead}");
+                backwardReadHead--;
+                letter = oracleText[backwardReadHead];
             }
            
-            line = oracleText.Substring(0, backCounter);
-            sections.Add(oracleText.Substring(0, backCounter));
-            oracleText = oracleText.Substring(backCounter + 1);
-            backCounter = InnerWriteWidth;
+            sections.Add(oracleText.Substring(0, backwardReadHead));
+            oracleText = oracleText.Substring(backwardReadHead + 1);
+            backwardReadHead = InnerWriteWidth - 1;
             if (oracleText.Length >= InnerWriteWidth)
             {
-                letter = oracleText[backCounter];
+                letter = oracleText[backwardReadHead];
             }
         }
 

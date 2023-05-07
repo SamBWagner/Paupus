@@ -6,7 +6,7 @@ public class Card
     public string OracleText { get; set; }
     public string Power { get; set; }
     public string Toughness { get; set; }
-    public string ConvertedManaCost { get; set; }
+    public double ConvertedManaCost { get; set; }
     public string ManaCost { get; set; }
     public string SetCode { get; set; }
     public string SetName { get; set; }

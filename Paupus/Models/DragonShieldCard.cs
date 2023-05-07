@@ -26,7 +26,7 @@ public class DragonShieldCard
             OracleText = string.Empty,
             Power = string.Empty,
             Toughness = string.Empty,
-            ConvertedManaCost = string.Empty, 
+            ConvertedManaCost = -1, 
             ManaCost = string.Empty,
             SetCode = SetCode,
             SetName = SetName,

@@ -20,6 +20,7 @@ switch (mode)
         try 
         {
             input = ConsolePrompt.Prompt("What card would you like to search for today?:");
+            // input = "goblin";
         }
         catch (NoNullAllowedException e)
         {
