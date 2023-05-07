@@ -21,15 +21,13 @@ public class ConsolePrompt
 
     public static void PrintCard(Card card)
     {
-        var innerContentWidth = card.Name.Length;
-        var offset = InnerWriteWidth - innerContentWidth;
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
 
-        PrintCardHeadline(card.Name, "{2}{g}{u}");
+        PrintCardHeadline(card.Name, card.ConvertedManaCost);
         PrintCardSeparator();
-        PrintTypeLine("Creature - Goblin" , "DMR");
+        PrintTypeLine(card.TypeLine , card.SetCode);
         PrintCardSeparator();
-        PrintOracleText("{1}{R}: Goblins you control get +1/+0 and gain haste until end of turn.\nPack tactics — Whenever Battle Cry Goblin attacks, if you attacked with creatures with total power 6 or greater this combat, create a 1/1 red Goblin creature token that's tapped and attacking.");
+        PrintOracleText(card.OracleText);
         
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
         Console.WriteLine();
@@ -48,18 +46,18 @@ public class ConsolePrompt
 
     public static void PrintCardSeparator()
     {
-         Console.WriteLine(Starter + "".PadRight(InnerWriteWidth + 2, '*') + Ender);
+        Console.WriteLine(Starter + "".PadRight(InnerWriteWidth + 2, '*') + Ender);
     }
     public static void PrintTypeLine(string typeLine, string setCode)
     {
-         var totalInput =
-             StarterLength + typeLine.Length + setCode.Length + EnderLength;
-         if (totalInput > TotalWriteWidth)
-         {
-             typeLine = $"{typeLine.Substring(0, TotalWriteWidth - (StarterLength + EnderLength + setCode.Length + 3))}...";
-         }
+        var totalInput =
+            StarterLength + typeLine.Length + setCode.Length + EnderLength;
+        if (totalInput > TotalWriteWidth)
+        {
+            typeLine = $"{typeLine.Substring(0, TotalWriteWidth - (StarterLength + EnderLength + setCode.Length + 3))}...";
+        }
         
-         Console.WriteLine($"{Starter}{typeLine}".PadRight(TotalWriteWidth - (setCode.Length + EnderLength), ' ') + $"{setCode}{Ender}");
+        Console.WriteLine($"{Starter}{typeLine}".PadRight(TotalWriteWidth - (setCode.Length + EnderLength), ' ') + $"{setCode}{Ender}");
     }
     
     //TODO: Refactor and use list cumulation rather than reverse read header
