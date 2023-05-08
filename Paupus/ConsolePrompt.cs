@@ -33,15 +33,18 @@ public class ConsolePrompt
         Console.WriteLine();
     }
 
-    public static void PrintCardHeadline(string name, string cmc)
+    public static void PrintCardHeadline(string? name, string? manaCost)
     {
+        manaCost ??= string.Empty;
+        name ??= string.Empty;
+        
         var totalInput =
-            StarterLength + name.Length + cmc.Length + EnderLength;
+            StarterLength + name.Length + manaCost.Length + EnderLength;
         if (totalInput > TotalWriteWidth)
         {
-            name = $"{name.Substring(0, TotalWriteWidth - (StarterLength + EnderLength + cmc.Length + 3))}...";
+            name = $"{name.Substring(0, TotalWriteWidth - (StarterLength + EnderLength + manaCost.Length + 3))}...";
         }
-        Console.WriteLine($"{Starter}{name}".PadRight(TotalWriteWidth - (cmc.Length + EnderLength), ' ') + $"{cmc}{Ender}");
+        Console.WriteLine($"{Starter}{name}".PadRight(TotalWriteWidth - (manaCost.Length + EnderLength), ' ') + $"{manaCost}{Ender}");
     }
 
     public static void PrintCardSeparator()
@@ -60,64 +63,56 @@ public class ConsolePrompt
         Console.WriteLine($"{Starter}{typeLine}".PadRight(TotalWriteWidth - (setCode.Length + EnderLength), ' ') + $"{setCode}{Ender}");
     }
     
-    //TODO: Refactor and use list cumulation rather than reverse read header
     public static void PrintOracleText(string? oracleText)
     {
-
-        // Console.WriteLine("Writting Card...");
-        // Console.WriteLine($"Current oracle text is: {oracleText}");
+        int backwardReadHeadDefault = InnerWriteWidth - 1; 
         if (string.IsNullOrWhiteSpace(oracleText))
         {
-            Console.WriteLine($"{Starter}'No oracle text".PadRight(TotalWriteWidth - EnderLength, ' ') + $"{Ender}");
+            Console.WriteLine($"{Starter}No oracle text".PadRight(TotalWriteWidth - EnderLength, ' ') + $"{Ender}");
             return;
         }
         
-        // TODO: Add new line character handling
-        if (oracleText.Length < InnerWriteWidth)
-        {
-            // Console.WriteLine($"Is the string shorter than the write width?: {oracleText.Length < InnerWriteWidth}");
-            Console.WriteLine($"{Starter}{oracleText}{Ender}");
-            return;
-        }
-
-        var sections = new List<string>(); 
+        var sections = new List<string>();
+        var newLineSeparatedLines = oracleText.Split('\n');
         
         // Find the end of lines
-        int backwardReadHead = InnerWriteWidth - 1;
+        int backwardReadHead = backwardReadHeadDefault;
         char letter = oracleText[backwardReadHead];
-        
-        while (oracleText.Length > 0)
-        {
-            if (oracleText.Length < InnerWriteWidth)
-            {
-                // Console.WriteLine($"Is the string shorter than the write width?: {oracleText.Length < InnerWriteWidth}");
-                sections.Add(oracleText.Substring(0));
-                break;
-            }
 
-            var index = oracleText.Substring(0, backwardReadHead).IndexOf('\n');
-            if (index != -1)
+        foreach (string newLineSeparatedLine in newLineSeparatedLines)
+        {
+            var line = newLineSeparatedLine;
+            while (line.Length > 0)
             {
-                sections.Add(oracleText.Substring(0, index));
-                sections.Add("");
-                oracleText = oracleText.Substring(index + 1);
+                if (line.Length < InnerWriteWidth)
+                {
+                    sections.Add(line.Substring(0));
+                    break;
+                }
+
+                if (line.Length >= InnerWriteWidth + 1 &&  line[backwardReadHeadDefault] != ' ' && line[backwardReadHeadDefault + 1] == ' ')
+                {
+                    sections.Add(line.Substring(0, backwardReadHead + 1));
+                    line = line.Substring(backwardReadHead + 2);
+                    continue;
+                }
+                
+                while (letter != ' ')
+                {
+                    backwardReadHead--;
+                    letter = line[backwardReadHead];
+                }
+                
+                sections.Add(line.Substring(0, backwardReadHead));
+                line = line.Substring(backwardReadHead + 1);
+
+                backwardReadHead = backwardReadHeadDefault;
+                if (line.Length >= InnerWriteWidth)
+                {
+                    letter = line[backwardReadHead];
+                }
             }
-            
-            while (letter != ' ')
-            {
-                // Console.WriteLine($"{oracleText} Length: {oracleText.Length}");
-                // Console.WriteLine($"ReadheadValue: {backwardReadHead}");
-                backwardReadHead--;
-                letter = oracleText[backwardReadHead];
-            }
-           
-            sections.Add(oracleText.Substring(0, backwardReadHead));
-            oracleText = oracleText.Substring(backwardReadHead + 1);
-            backwardReadHead = InnerWriteWidth - 1;
-            if (oracleText.Length >= InnerWriteWidth)
-            {
-                letter = oracleText[backwardReadHead];
-            }
+            sections.Add("");
         }
 
         // print sections

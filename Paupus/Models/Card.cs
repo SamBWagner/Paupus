@@ -7,7 +7,7 @@ public class Card
     public string Power { get; set; }
     public string Toughness { get; set; }
     public double ConvertedManaCost { get; set; }
-    public string ManaCost { get; set; }
+    public string? ManaCost { get; set; }
     public string SetCode { get; set; }
     public string SetName { get; set; }
     public string CardNumber { get; set; }
