@@ -19,8 +19,7 @@ switch (mode)
         string input;
         try 
         {
-            // input = ConsolePrompt.Prompt("What card would you like to search for today?:");
-            input = "Angel";
+            input = ConsolePrompt.Prompt("What card would you like to search for today?:");
         }
         catch (NoNullAllowedException e)
         {

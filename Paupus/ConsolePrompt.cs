@@ -65,7 +65,7 @@ public class ConsolePrompt
     
     public static void PrintOracleText(string? oracleText)
     {
-        int backwardReadHeadDefault = InnerWriteWidth - 1; 
+        int readHeadStartIndex = InnerWriteWidth - 1; 
         if (string.IsNullOrWhiteSpace(oracleText))
         {
             Console.WriteLine($"{Starter}No oracle text".PadRight(TotalWriteWidth - EnderLength, ' ') + $"{Ender}");
@@ -73,11 +73,11 @@ public class ConsolePrompt
         }
         
         var sections = new List<string>();
+        
         var newLineSeparatedLines = oracleText.Split('\n');
         
         // Find the end of lines
-        int backwardReadHead = backwardReadHeadDefault;
-        char letter = oracleText[backwardReadHead];
+        int backwardReadHead = readHeadStartIndex;
 
         foreach (string newLineSeparatedLine in newLineSeparatedLines)
         {
@@ -90,23 +90,25 @@ public class ConsolePrompt
                     break;
                 }
 
-                if (line.Length >= InnerWriteWidth + 1 &&  line[backwardReadHeadDefault] != ' ' && line[backwardReadHeadDefault + 1] == ' ')
+                if (line.Length > InnerWriteWidth && line[readHeadStartIndex] != ' ' && line[readHeadStartIndex + 1] == ' ')
                 {
                     sections.Add(line.Substring(0, backwardReadHead + 1));
                     line = line.Substring(backwardReadHead + 2);
                     continue;
                 }
                 
+                char letter = line[backwardReadHead];
                 while (letter != ' ')
                 {
                     backwardReadHead--;
                     letter = line[backwardReadHead];
                 }
-                
-                sections.Add(line.Substring(0, backwardReadHead));
+
+                var test = line.Substring(0, backwardReadHead + 1); 
+                sections.Add(line.Substring(0,backwardReadHead));
                 line = line.Substring(backwardReadHead + 1);
 
-                backwardReadHead = backwardReadHeadDefault;
+                backwardReadHead = readHeadStartIndex;
                 if (line.Length >= InnerWriteWidth)
                 {
                     letter = line[backwardReadHead];
