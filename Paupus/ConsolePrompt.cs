@@ -6,8 +6,8 @@ namespace Paupus;
 // TODO: Console.Width is a thing lol use it
 public class ConsolePrompt
 {
-    private static int TotalWriteWidth { get; set; } = 40;
-    private static int InnerWriteWidth { get; set; } = 30;
+    private static int TotalWriteWidth { get; set; } = 50;
+    private static int InnerWriteWidth { get; set; } = TotalWriteWidth - 10;
     private static string Starter { get; set; } = "--- ";
     private static int StarterLength { get; set; } = Starter.Length;
     private static string Ender { get; set; } = " ---";
@@ -19,7 +19,7 @@ public class ConsolePrompt
         return Console.ReadLine() ?? throw new NoNullAllowedException();
     }
 
-    public static void PrintCard(Card card)
+    public static void PrintCard(Card card, int width = 30)
     {
         Console.WriteLine("".PadRight(TotalWriteWidth, '-'));
 
@@ -104,7 +104,6 @@ public class ConsolePrompt
                     letter = line[backwardReadHead];
                 }
 
-                var test = line.Substring(0, backwardReadHead + 1); 
                 sections.Add(line.Substring(0,backwardReadHead));
                 line = line.Substring(backwardReadHead + 1);
 
