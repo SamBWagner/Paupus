@@ -3,7 +3,6 @@ using Paupus.Models;
 
 namespace Paupus;
 
-// TODO: Console.Width is a thing lol use it
 public class ConsolePrompt
 {
     private static int TotalWriteWidth { get; set; } = 50;

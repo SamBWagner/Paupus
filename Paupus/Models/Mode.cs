@@ -1,6 +1,6 @@
 namespace Paupus.Models;
 
-public enum Modes
+public enum Mode
 {
     Search,
     Convert,

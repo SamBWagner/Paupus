@@ -2,20 +2,20 @@
 using Paupus;
 using Paupus.Models;
 
-var mode = Modes.Search;
+var mode = Mode.Search;
 
 List<Card> cards;
 
 if (args.Length > 0)
 {
-    mode = Enum.Parse<Modes>(args[0]);
+    mode = Enum.Parse<Mode>(args[0]);
 }
 
-Console.WriteLine("Welcome to Paupus!");
+mode = Enum.Parse<Mode>(ConsolePrompt.Prompt("Welcome to Paupus! Please enter a mode you'd like to use: "));
+
 switch (mode)
 {
-    // TODO: Make this work with a full Scryfall Card
-    case Modes.Search:
+    case Mode.Search:
         string input;
         try 
         {
@@ -27,7 +27,6 @@ switch (mode)
             return;
         }
         
-        // TODO: Catching a big exception is stinky. More specific. Logging to string is stinky too.
         try
         {
             cards = await CardSearch.SearchForCards(input);
@@ -49,14 +48,14 @@ switch (mode)
             ConsolePrompt.PrintCard(card);
         }
         break;
-    case Modes.Convert:
+    case Mode.Convert:
     {
         using StreamReader reader = new(Common.CSV_PATH);
         await using StreamWriter writer = new("./output.txt");
         CardParser.ConvertDragonShieldCsvToSearchableText(reader, writer);
         break; 
     }
-    case Modes.View:
+    case Mode.View:
     {
         using StreamReader reader = new(Common.CSV_PATH);
         cards = await CardParser.GetFromDragonShieldCsv(reader);
