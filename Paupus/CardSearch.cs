@@ -2,6 +2,7 @@ using System.Data;
 using System.Net.Http.Json;
 using System.Web;
 using Paupus.Models;
+using Paupus.Models.Scryfall;
 
 namespace Paupus;
 

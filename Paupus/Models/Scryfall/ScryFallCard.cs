@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Paupus.Models;
+namespace Paupus.Models.Scryfall;
 
 public class ScryFallCard
 {

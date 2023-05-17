@@ -1,3 +1,5 @@
+using Paupus.Models.Scryfall;
+
 namespace Paupus.Models;
 
 public class Card

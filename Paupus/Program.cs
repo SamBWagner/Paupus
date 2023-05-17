@@ -1,8 +1,10 @@
 ﻿using System.Data;
+using System.Net.Http.Json;
 using Paupus;
 using Paupus.Models;
+using Paupus.Models.Scryfall;
 
-var mode = Mode.Search;
+var mode = Mode.UpdateData;
 
 List<Card> cards;
 
@@ -70,5 +72,7 @@ switch (mode)
     }
     case Mode.UpdateData:
         //TODO: Download the card data from scryfall to a local instance
+        var bulkData = await PaupusHttpClient.Client.GetFromJsonAsync<ScryfallBulkDataList>("bulk-data");
+        Console.WriteLine($"Found this many data points: {bulkData?.Data.Count}");
         break;
 }
