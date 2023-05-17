@@ -4,5 +4,6 @@ public enum Mode
 {
     Search,
     Convert,
-    View
+    View,
+    UpdateData
 }

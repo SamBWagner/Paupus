@@ -68,5 +68,7 @@ switch (mode)
         Console.WriteLine($"Total: {cardCount}".PadRight(40, ' '));
         break;
     }
-
+    case Mode.UpdateData:
+        //TODO: Download the card data from scryfall to a local instance
+        break;
 }
